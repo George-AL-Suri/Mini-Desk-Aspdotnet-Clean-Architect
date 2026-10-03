@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MiniDesk.Api/MiniDesk.Api.csproj" />
+    <Project Path="src/MiniDesk.Application/MiniDesk.Application.csproj" />
+    <Project Path="src/MiniDesk.Domain/MiniDesk.Domain.csproj" />
+    <Project Path="src/MiniDesk.Infrastructure/MiniDesk.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MiniDesk.IntegrationTests/MiniDesk.IntegrationTests.csproj" />
+    <Project Path="tests/MiniDesk.UnitTests/MiniDesk.UnitTests.csproj" />
+  </Folder>
+</Solution>

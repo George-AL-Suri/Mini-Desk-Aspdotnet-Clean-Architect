@@ -1,0 +1,23 @@
+# .NET
+**/bin/
+**/obj/
+.vs/
+**/.vs/
+
+# Frontend
+**/node_modules/
+**/dist/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+
+# OS
+.DS_Store
+Thumbs.db
+
