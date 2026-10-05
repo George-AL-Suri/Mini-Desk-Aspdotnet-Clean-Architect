@@ -6,10 +6,13 @@ using MiniDesk.Infrastructure.Identity;
 
 namespace MiniDesk.Infrastructure.Persistence;
 
-public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+    protected AppDbContext()
+    {
+    }
 
     public DbSet<Ticket> Tickets => Set<Ticket>();
     public DbSet<Category> Categories => Set<Category>();
@@ -22,3 +25,12 @@ public class AppDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid
         builder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
     }
 }
+
+
+/*
+ * dotnet ef migrations add InitialCreate --project src/MiniDesk.Infrastructure --startup-project src/MiniDesk.Api --output-dir Persistence/Migrations
+ * dotnet ef database update --project src/MiniDesk.Infrastructure --startup-project src/MiniDesk.Api
+ * dotnet ef migrations remove  --project src/MiniDesk.Infrastructure --startup-project src/MiniDesk.Api
+ * dotnet ef migrations list    --project src/MiniDesk.Infrastructure --startup-project src/MiniDesk.Api
+ * dotnet ef migrations script  --project src/MiniDesk.Infrastructure --startup-project src/MiniDesk.Api -o migrate.sql
+ */

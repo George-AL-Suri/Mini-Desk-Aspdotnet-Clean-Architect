@@ -4,6 +4,15 @@
     <ProjectReference Include="..\MiniDesk.Domain\MiniDesk.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Mappings\" />
+    <Folder Include="Queries\" />
+    <Folder Include="Services\" />
+    <Folder Include="Validators\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

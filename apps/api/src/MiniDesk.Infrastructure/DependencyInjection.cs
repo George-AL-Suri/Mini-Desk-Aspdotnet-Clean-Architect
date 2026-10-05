@@ -1,0 +1,34 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using MiniDesk.Infrastructure.Identity;
+using MiniDesk.Infrastructure.Identity.Seed;
+using MiniDesk.Infrastructure.Persistence;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace MiniDesk.Infrastructure;
+
+public static class DependencyInjection
+{
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
+    {
+        services.Configure<SeedAdminOptions>(config.GetSection(SeedAdminOptions.SectionName));
+
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(
+                config.GetConnectionString("DefaultConnection"),
+                sql => sql.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)));
+
+        services.AddIdentityCore<ApplicationUser>(o =>
+        {
+            o.Password.RequiredLength = 8;
+            o.User.RequireUniqueEmail = true;
+        })
+            .AddRoles<ApplicationRole>()
+            .AddEntityFrameworkStores<AppDbContext>();
+
+        return services;
+    }
+}
