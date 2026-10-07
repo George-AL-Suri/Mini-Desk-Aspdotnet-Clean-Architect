@@ -1,9 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MiniDesk.Application.Common.Interfaces;
+using MiniDesk.Application.Tickets;
 using MiniDesk.Infrastructure.Identity;
 using MiniDesk.Infrastructure.Identity.Seed;
 using MiniDesk.Infrastructure.Persistence;
+using MiniDesk.Infrastructure.Persistence.Queries;
+using MiniDesk.Infrastructure.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,6 +32,12 @@ public static class DependencyInjection
         })
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<AppDbContext>();
+
+        // Infrastructure/DependencyInjection.cs
+        services.AddScoped<ITicketRepository, TicketRepository>();
+        services.AddScoped<ITicketQueries, TicketQueries>();
+
+        services.AddScoped<IIdentityService, IdentityService>();
 
         return services;
     }
