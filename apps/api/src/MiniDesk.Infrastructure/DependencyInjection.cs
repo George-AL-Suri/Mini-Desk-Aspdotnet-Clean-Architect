@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MiniDesk.Application.Auth;
+using MiniDesk.Application.Categories;
 using MiniDesk.Application.Common.Interfaces;
 using MiniDesk.Application.Tickets;
 using MiniDesk.Infrastructure.Auth;
@@ -39,6 +40,9 @@ public static class DependencyInjection
         // Infrastructure/DependencyInjection.cs
         services.AddScoped<ITicketRepository, TicketRepository>();
         services.AddScoped<ITicketQueries, TicketQueries>();
+
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<ICategoryQueries, CategoryQueries>();
 
         services.AddScoped<IIdentityService, IdentityService>();
         services.AddScoped<IAuthService, AuthService>();
