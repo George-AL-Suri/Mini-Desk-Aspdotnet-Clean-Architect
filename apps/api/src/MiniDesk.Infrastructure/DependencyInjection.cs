@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MiniDesk.Application.Auth;
 using MiniDesk.Application.Common.Interfaces;
 using MiniDesk.Application.Tickets;
+using MiniDesk.Infrastructure.Auth;
 using MiniDesk.Infrastructure.Identity;
 using MiniDesk.Infrastructure.Identity.Seed;
 using MiniDesk.Infrastructure.Persistence;
@@ -19,6 +21,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
     {
         services.Configure<SeedAdminOptions>(config.GetSection(SeedAdminOptions.SectionName));
+        services.Configure<JwtOptions>(config.GetSection(JwtOptions.SectionName));
 
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(
@@ -38,6 +41,8 @@ public static class DependencyInjection
         services.AddScoped<ITicketQueries, TicketQueries>();
 
         services.AddScoped<IIdentityService, IdentityService>();
+        services.AddScoped<IAuthService, AuthService>();
+
 
         return services;
     }
