@@ -9,6 +9,7 @@ using MiniDesk.Infrastructure;
 using MiniDesk.Infrastructure.Identity.Seed;
 using MiniDesk.Infrastructure.Persistence;
 using Scalar.AspNetCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,9 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUser, CurrentUser>();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 var app = builder.Build();
 app.UseExceptionHandling();
