@@ -59,6 +59,8 @@ public static class DependencyInjection
         services.AddScoped<IAuthService, AuthService>();
 
 
+        services.AddHostedService<RefreshTokenCleanupService>();
+
         return services;
     }
 }
