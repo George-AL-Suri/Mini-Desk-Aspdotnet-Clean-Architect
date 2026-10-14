@@ -78,12 +78,22 @@ app.UseHttpsRedirection();
 
 app.UseCors(CorsPolicy);    // before authentication
 
+app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });          // app is running
+app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = c => c.Tags.Contains("ready") }); // DB reachable
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapGet("/api/health/live", () => Results.Ok(new { Status = "Healthy" }))
+.WithTags("Health");
+
+    app.MapGet("/api/health/ready", () => Results.Ok(new { Status = "Ready" }))
+       .WithTags("Health"); 
+}
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHealthChecks("/health/live", new HealthCheckOptions { Predicate = _ => false });          // app is running
-app.MapHealthChecks("/health/ready", new HealthCheckOptions { Predicate = c => c.Tags.Contains("ready") }); // DB reachable
 
 app.Run();
