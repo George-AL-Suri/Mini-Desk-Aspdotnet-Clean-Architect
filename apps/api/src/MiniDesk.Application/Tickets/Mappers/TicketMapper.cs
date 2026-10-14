@@ -15,6 +15,7 @@ public static partial class TicketMapper
     [MapperIgnoreTarget(nameof(Ticket.CreatedAt))]
     [MapperIgnoreTarget(nameof(Ticket.UpdatedAt))]
     [MapperIgnoreTarget(nameof(Ticket.Comments))]
+    [MapperIgnoreTarget(nameof(Ticket.RowVersion))]
     public static partial Ticket ToEntity(this CreateTicketRequest request);
 
     [MapperIgnoreTarget(nameof(Ticket.Id))]
@@ -25,5 +26,6 @@ public static partial class TicketMapper
     [MapperIgnoreTarget(nameof(Ticket.CreatedAt))]
     [MapperIgnoreTarget(nameof(Ticket.UpdatedAt))]
     [MapperIgnoreTarget(nameof(Ticket.Comments))]
+    [MapperIgnoreTarget(nameof(Ticket.RowVersion))]
     public static partial void Apply(this UpdateTicketRequest request, [MappingTarget] Ticket ticket);
 }

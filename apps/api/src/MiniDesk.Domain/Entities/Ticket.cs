@@ -18,6 +18,7 @@ public class Ticket
 
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }
+    public byte[] RowVersion { get; set; } = [];
 
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }

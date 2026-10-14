@@ -16,4 +16,5 @@ public record TicketDto(
     string? AssignedToName,
     DateTime CreatedAt,
     DateTime? UpdatedAt,
-    IReadOnlyList<CommentDto> Comments);
+    IReadOnlyList<CommentDto> Comments,
+    string RowVersion);

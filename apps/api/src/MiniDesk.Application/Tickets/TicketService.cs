@@ -47,7 +47,8 @@ public class TicketService(
             ticket.CreatedById, currentUser.UserName ?? "",
             null, null,                                  // not assigned yet
             ticket.CreatedAt, ticket.UpdatedAt,
-            []);                                         // no comments yet
+            [],                                          // no comments yet
+            Convert.ToBase64String(ticket.RowVersion));                                         
     }
 
     // ---------- Get all ----------
@@ -92,6 +93,7 @@ public class TicketService(
             !await tickets.CategoryExistsAsync(request.CategoryId, ct))
             throw new NotFoundException(nameof(Category), request.CategoryId);
 
+        tickets.SetRowVersion(ticket, Convert.FromBase64String(request.RowVersion));
         request.Apply(ticket);                    // Mapperly updates the tracked entity
         await unitOfWork.SaveChangesAsync(ct);
     }

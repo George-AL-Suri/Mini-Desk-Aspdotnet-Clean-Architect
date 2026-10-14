@@ -12,5 +12,6 @@ public interface ITicketRepository
     Task AddCommentAsync(Comment comment, CancellationToken ct);
     Task<bool> CategoryExistsAsync(int categoryId, CancellationToken ct);
     Task<string?> GetCategoryNameAsync(int categoryId, CancellationToken ct);
+    void SetRowVersion(Ticket ticket, byte[] rowVersion);
 }
 

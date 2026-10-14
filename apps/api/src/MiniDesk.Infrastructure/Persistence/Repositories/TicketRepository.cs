@@ -29,4 +29,6 @@ internal class TicketRepository(AppDbContext db) : ITicketRepository
             .Select(c => c.Name)
             .FirstOrDefaultAsync();
     }
+    public void SetRowVersion(Ticket ticket, byte[] rowVersion) =>
+        db.Entry(ticket).Property(t => t.RowVersion).OriginalValue = rowVersion;
 }

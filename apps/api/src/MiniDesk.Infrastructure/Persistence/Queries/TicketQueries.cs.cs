@@ -57,7 +57,8 @@ internal class TicketQueries(AppDbContext db) : ITicketQueries
                 r.Ticket.AssignedToId,
                 AssignedToName = r.Assignee != null ? r.Assignee.UserName : null,
                 r.Ticket.CreatedAt,
-                r.Ticket.UpdatedAt
+                r.Ticket.UpdatedAt,
+                r.Ticket.RowVersion
             })
             .FirstOrDefaultAsync(ct);
 
@@ -86,7 +87,7 @@ internal class TicketQueries(AppDbContext db) : ITicketQueries
             row.CreatedById, row.CreatedByName,
             row.AssignedToId, row.AssignedToName,
             row.CreatedAt, row.UpdatedAt,
-            comments);
+            comments, Convert.ToBase64String(row.RowVersion));
     }
 
     // ---------- Paged list ----------

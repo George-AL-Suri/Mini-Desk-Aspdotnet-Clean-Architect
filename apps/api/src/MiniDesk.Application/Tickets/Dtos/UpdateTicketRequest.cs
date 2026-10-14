@@ -5,4 +5,5 @@ public record UpdateTicketRequest(
     string Title,
     string Description,
     TicketPriority Priority,
-    int CategoryId);
+    int CategoryId,
+    string RowVersion);

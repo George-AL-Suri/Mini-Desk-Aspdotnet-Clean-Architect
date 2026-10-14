@@ -29,6 +29,8 @@ internal class TicketConfiguration : IEntityTypeConfiguration<Ticket>
             .HasForeignKey(t => t.AssignedToId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        builder.Property(t => t.RowVersion).IsRowVersion();
+
         builder.HasIndex(t => t.Priority);
         builder.HasIndex(t => t.Status);
         builder.HasIndex(t => t.CreatedAt);
