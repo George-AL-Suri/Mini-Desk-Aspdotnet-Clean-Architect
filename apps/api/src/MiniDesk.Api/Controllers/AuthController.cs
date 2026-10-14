@@ -9,14 +9,26 @@ using MiniDesk.Application.Common.Interfaces;
 [Route("api/auth")]
 public class AuthController(IAuthService auth) : ControllerBase
 {
-    [AllowAnonymous]
-    [HttpPost("login")]
-    public async Task<ActionResult<AuthResponse>> Login(LoginRequest request, CancellationToken ct) =>
-        Ok(await auth.LoginAsync(request, ct));
+    [AllowAnonymous, HttpPost("register")]
+    public async Task<ActionResult<AuthResponse>> Register(RegisterRequest r, CancellationToken ct) =>
+        Ok(await auth.RegisterAsync(r, ct));
 
-    // quick check that the token and ICurrentUser work
-    [Authorize]
-    [HttpGet("me")]
+    [AllowAnonymous, HttpPost("login")]
+    public async Task<ActionResult<AuthResponse>> Login(LoginRequest r, CancellationToken ct) =>
+        Ok(await auth.LoginAsync(r, ct));
+
+    [AllowAnonymous, HttpPost("refresh")]
+    public async Task<ActionResult<AuthResponse>> Refresh(RefreshRequest r, CancellationToken ct) =>
+        Ok(await auth.RefreshAsync(r, ct));
+
+    [AllowAnonymous, HttpPost("logout")]
+    public async Task<IActionResult> Logout(RefreshRequest r, CancellationToken ct)
+    {
+        await auth.LogoutAsync(r, ct);
+        return NoContent();
+    }
+
+    [Authorize, HttpGet("me")]
     public IActionResult Me([FromServices] ICurrentUser user) =>
         Ok(new { user.UserId, user.UserName, IsAdmin = user.IsInRole(Roles.Admin) });
 }

@@ -1,3 +1,3 @@
 ﻿namespace MiniDesk.Application.Auth.Dtos;
 
-public record AuthResponse(string AccessToken, DateTime ExpiresAt);
+public record AuthResponse(string AccessToken, DateTime ExpiresAt, string RefreshToken);
